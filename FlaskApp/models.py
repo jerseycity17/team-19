@@ -17,7 +17,7 @@ class Profile(db.Model):
     state = db.Column(db.String())
 
     def __repr__(self):
-        return '<User %r>' % self.firstName + " " + self.lastName
+        return '<Profile %r>' % self.firstName + " " + self.lastName
 
 class Organization(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -26,7 +26,7 @@ class Organization(db.Model):
     summary = db.Column(db.String(2000), unique=False, nullable=True)
 
     def __repr__(self):
-        return '<User %r>' % self.name
+        return '<Organization %r>' % self.name
 
 class Challenges(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -35,7 +35,7 @@ class Challenges(db.Model):
     catalystId = (db.Integer, db.ForeignKey('Profile.id'), nullable=False)
 
     def __repr__(self):
-        return '<User %r>' % self.name
+        return '<Challenges %r>' % self.name
 
 class ApprovedTask(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -43,20 +43,18 @@ class ApprovedTask(db.Model):
     description = db.Column(db.String(500), unique=False, nullable=True)
 
     def __repr__(self):
-        return '<User %r>' % self.name
+        return '<ApprovedTask %r>' % self.name
 
 class TaskChallenges(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(80), unique=False, nullable=False)
-    description = db.Column(db.String(500), unique=False, nullable=True)
-
-    def __repr__(self):
-        return '<User %r>' % self.name
+    approvedTaskId = db.Column(db.Integer, db.ForeignKey('ApprovedTask.id'), nullable=False)
+    challengeId = db.Column(db.Integer, db.ForeignKey('Challenges.id'), nullable=False)
+    profileId = db.Column(db.Integer, db.ForeignKey('Profile.id'), nullable=False)
 
 class Participant(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    userId = db.Column(db.Integer, unique=False, nullable=False)
-    parentUserId = db.Column(db.Integer, unique=False, nullable=True)
+    userId = db.Column(db.Integer, db.ForeignKey('Profile.id'), unique=False, nullable=False)
+    parentUserId = db.Column(db.Integer, db.ForeignKey('Profile.id'), unique=False, nullable=True)
 
     def __repr__(self):
         return '<User %r>' % self.name

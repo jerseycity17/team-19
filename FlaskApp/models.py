@@ -14,7 +14,8 @@ class Profile(Base):
     email = Column(String(80), unique=True, nullable=False)
     age = Column(Integer, unique=False, nullable=True)
     gender = Column(String(20), unique=False, nullable=True)
-    state = Column(String())
+    state = Column(String(20), unique=False, nullable=True)
+    country = Column(String(50), unique=False, nullable=True)
 
     def __repr__(self):
         return '<Profile %r>' % self.firstName + " " + self.lastName
@@ -60,6 +61,7 @@ class Participant(Base):
     id = Column(Integer, primary_key=True)
     userId = Column(Integer, ForeignKey('Profile.id'), unique=False, nullable=False)
     parentUserId = Column(Integer, ForeignKey('Profile.id'), unique=False, nullable=True)
+    counter = Column(Integer, unique=False, nullable=True)
 
     def __repr__(self):
         return '<User %r>' % self.name

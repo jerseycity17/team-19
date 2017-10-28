@@ -1,5 +1,5 @@
 from flask import Flask, send_from_directory, request, redirect, url_for
-from flask import render_template, flask_login
+from flask import render_template
 from flask_login import LoginManager, UserMixin, login_required
 import os 
 from flask_sqlalchemy import SQLAlchemy
@@ -11,10 +11,6 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + dir_path + '/6degree.db'
 db = SQLAlchemy(app)
 
-
-@app.route('/OrgsSummary')
-def OrgsSummarymethod():
-    return render_template('OrgsSummary.html')	
 
 @app.route('/static/<path:path>')
 def send_css(path):

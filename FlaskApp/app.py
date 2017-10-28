@@ -1,11 +1,13 @@
-
-
 from flask import Flask, send_from_directory
 from flask import render_template
 from flask.ext.login import LoginManager, UserMixin, login_required
-
-
 app = Flask(__name__)
+
+
+@app.route('/OrgsSummary')
+def OrgsSummarymethod():
+    return render_template('OrgsSummary.html')
+
 
 
 @app.route('/static/<path:path>')
@@ -99,12 +101,15 @@ def OrgsSummarymethod():
 @app.route('/Drive')
 def Drivemethod():
     return render_template('Drive.html')
-	
+
 @app.route('/OrgsDescriptionmethod')
 def OrgsDescriptions():
     return render_template('OrgsDescriptions.html')
-	
 
+@app.route('/finalmethod')
+def finalmethod():
+	return render_template('final.html')
+	
 if __name__ == "__main__":
 		app.run()
 

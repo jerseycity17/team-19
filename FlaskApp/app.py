@@ -1,18 +1,15 @@
+from flask import Flask, send_from_directory
+from flask import render_template
+from flask.ext.login import LoginManager, UserMixin, login_required
+app = Flask(__name__)
 
 
 @app.route('/OrgsSummary')
 def OrgsSummarymethod():
     return render_template('OrgsSummary.html')
-if __name__ == "__main__":
-	app.run()
-	
-
-from flask import Flask, send_from_directory
-from flask import render_template
-from flask.ext.login import LoginManager, UserMixin, login_required
 
 
-app = Flask(__name__)
+
 
 
 @app.route('/static/<path:path>')

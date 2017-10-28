@@ -1,12 +1,4 @@
-from flask import Flask
-from flask_sqlalchemy import sqlalchemy
-import os 
-dir_path = os.path.dirname(os.path.realpath(__file__))
-
-app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + dir_path + '/6degree.db'
-db = SQLAlchemy(app)
-
+from app import db
 
 class Profile(db.Model):
     id = db.Column(db.Integer, primary_key=True)

@@ -1,12 +1,5 @@
 
 
-@app.route('/OrgsSummary')
-def OrgsSummarymethod():
-    return render_template('OrgsSummary.html')
-if __name__ == "__main__":
-	app.run()
-	
-
 from flask import Flask, send_from_directory
 from flask import render_template
 from flask.ext.login import LoginManager, UserMixin, login_required
@@ -98,7 +91,13 @@ def unauthorized_handler():
 @login_required
 def protected():
 	return 'Logged in as: ' + flask_login.current_user.id
-
+@app.route('/OrgsSummary')
+def OrgsSummarymethod():
+    return render_template('OrgsSummary.html')
+@app.route('/OrgsDescriptionmethod')
+def OrgsDescriptions():
+    return render_template('OrgsDescriptions.html')
+	
 
 if __name__ == "__main__":
 		app.run()

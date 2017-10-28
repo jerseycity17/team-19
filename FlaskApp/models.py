@@ -54,7 +54,7 @@ class TaskChallenges(Base):
     id = Column(Integer, primary_key=True)
     approvedTaskId = Column(Integer, ForeignKey('ApprovedTask.id'), nullable=False)
     challengeId = Column(Integer, ForeignKey('Challenges.id'), nullable=False)
-    profileId = Column(Integer, ForeignKey('Profile.id'), nullable=False)
+    participantId = Column(Integer, ForeignKey('Participant.id'), nullable=False)
 
 class Participant(Base):
     __tablename__ = "Participant"

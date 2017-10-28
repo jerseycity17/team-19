@@ -1,15 +1,14 @@
 from flask import Flask, send_from_directory, request, redirect, url_for
-from flask import render_template, flask_login
+from flask import render_template
 from flask_login import LoginManager, UserMixin, login_required
+import sqlalchemy
 import os 
-from flask_sqlalchemy import SQLAlchemy
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
-
+ 
 app = Flask(__name__)
-
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + dir_path + '/6degree.db'
-db = SQLAlchemy(app)
+db = sqlalchemy(app)
 
 
 @app.route('/OrgsSummary')

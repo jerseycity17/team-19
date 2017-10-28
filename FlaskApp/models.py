@@ -1,53 +1,76 @@
-from app import db
+import os
+import sys
+from sqlalchemy import Column, ForeignKey, Integer, String
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import relationship
+from sqlalchemy import create_engine
 
-class Profile(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    firstName = db.Column(db.String(80), unique=False, nullable=False)
-    email = db.Column(db.String(80), unique=True, nullable=False)
-    age = db.Column(db.Integer, unique=False, nullable=True)
-    gender = db.Column(db.String(20), unique=False, nullable=True)
-    state = db.Column(db.String())
+Base = declarative_base()
+
+class Profile(Base):
+    __tablename__ = "Profile"
+    id = Column(Integer, primary_key=True)
+    firstName = Column(String(80), unique=False, nullable=False)
+    email = Column(String(80), unique=True, nullable=False)
+    age = Column(Integer, unique=False, nullable=True)
+    gender = Column(String(20), unique=False, nullable=True)
+    state = Column(String())
 
     def __repr__(self):
         return '<Profile %r>' % self.firstName + " " + self.lastName
 
-class Organization(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(80), unique=False, nullable=False)
-    purpose = db.Column(db.String(80), unique=False, nullable=True)
-    summary = db.Column(db.String(2000), unique=False, nullable=True)
+class Organization(Base):
+    __tablename__ = "Organization"
+    id = Column(Integer, primary_key=True)
+    name = Column(String(80), unique=False, nullable=False)
+    purpose = Column(String(80), unique=False, nullable=True)
+    summary = Column(String(2000), unique=False, nullable=True)
 
     def __repr__(self):
         return '<Organization %r>' % self.name
 
-class Challenges(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(80), unique=False, nullable=False)
-    organizationId = (db.Integer, db.ForeignKey('Organization.id'), nullable=False)
-    catalystId = (db.Integer, db.ForeignKey('Profile.id'), nullable=False)
+class Challenges(Base):
+    __tablename__ = "Challenges"
+    id = Column(Integer, primary_key=True)
+    name = Column(String(80), unique=False, nullable=False)
+    organizationId = Column(Integer, ForeignKey('Organization.id'), nullable=False)
+    catalystId = Column(Integer, ForeignKey('Profile.id'), nullable=False)
 
     def __repr__(self):
         return '<Challenges %r>' % self.name
 
-class ApprovedTask(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(80), unique=False, nullable=False)
-    description = db.Column(db.String(500), unique=False, nullable=True)
+class ApprovedTask(Base):
+    __tablename__ = "ApprovedTask"
+    id = Column(Integer, primary_key=True)
+    name = Column(String(80), unique=False, nullable=False)
+    description = Column(String(500), unique=False, nullable=True)
 
     def __repr__(self):
         return '<ApprovedTask %r>' % self.name
 
-class TaskChallenges(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    approvedTaskId = db.Column(db.Integer, db.ForeignKey('ApprovedTask.id'), nullable=False)
-    challengeId = db.Column(db.Integer, db.ForeignKey('Challenges.id'), nullable=False)
-    profileId = db.Column(db.Integer, db.ForeignKey('Profile.id'), nullable=False)
+class TaskChallenges(Base):
+    __tablename__ = "TaskChallenges"
+    id = Column(Integer, primary_key=True)
+    approvedTaskId = Column(Integer, ForeignKey('ApprovedTask.id'), nullable=False)
+    challengeId = Column(Integer, ForeignKey('Challenges.id'), nullable=False)
+    profileId = Column(Integer, ForeignKey('Profile.id'), nullable=False)
 
-class Participant(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    userId = db.Column(db.Integer, db.ForeignKey('Profile.id'), unique=False, nullable=False)
-    parentUserId = db.Column(db.Integer, db.ForeignKey('Profile.id'), unique=False, nullable=True)
+class Participant(Base):
+    __tablename__ = "Participant"
+    id = Column(Integer, primary_key=True)
+    userId = Column(Integer, ForeignKey('Profile.id'), unique=False, nullable=False)
+    parentUserId = Column(Integer, ForeignKey('Profile.id'), unique=False, nullable=True)
 
     def __repr__(self):
         return '<User %r>' % self.name
 
+# get path of current directory
+dir_path = os.path.dirname(os.path.realpath(__file__))
+
+# Create an engine that stores data in the local directory's
+# sqlalchemy_example.db file.
+engine = create_engine('sqlite:///' + dir_path + '/6degree.db')
+ 
+# Create all tables in the engine. This is equivalent to "Create Table"
+# statements in raw SQL.
+Base.metadata.create_all(engine)

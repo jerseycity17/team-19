@@ -68,13 +68,12 @@ class Participant(Base):
     def __repr__(self):
         return '<User %r>' % self.name
 
-# get path of current directory
-# dir_path = os.path.dirname(os.path.realpath(__file__))
+# get path of current directory # dir_path = os.path.dirname(os.path.realpath(__file__))
+
 
 # Create an engine that stores data in the local directory's
-# sqlalchemy_example.db file.
-# engine = create_engine('sqlite:///' + dir_path + '/6degree.db')
+# sqlalchemy_example.db file. #  engine = create_engine('sqlite:///' + dir_path + '/6degree.db')
+
  
 # Create all tables in the engine. This is equivalent to "Create Table"
-# statements in raw SQL.
-# Base.metadata.create_all(engine)
+# statements in raw SQL. # Base.metadata.create_all(engine)

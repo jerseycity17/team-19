@@ -11,6 +11,7 @@ class Profile(Base):
     __tablename__ = "Profile"
     id = Column(Integer, primary_key=True)
     firstName = Column(String(80), unique=False, nullable=False)
+    lastName = Column(String(80), unique=False, nullable=False)
     email = Column(String(80), unique=True, nullable=False)
     age = Column(Integer, unique=False, nullable=True)
     gender = Column(String(20), unique=False, nullable=True)
@@ -61,6 +62,7 @@ class Participant(Base):
     id = Column(Integer, primary_key=True)
     userId = Column(Integer, ForeignKey('Profile.id'), unique=False, nullable=False)
     parentUserId = Column(Integer, ForeignKey('Profile.id'), unique=False, nullable=True)
+    challengeId = Column(Integer, ForeignKey('Challenges.id'), unique=False, nullable=True)
     counter = Column(Integer, unique=False, nullable=True)
 
     def __repr__(self):

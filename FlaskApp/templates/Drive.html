@@ -1,16 +1,14 @@
 {% extends 'base.html' %}
 
 {% block body %}
-
+<h1>Choose a task to preform</h1>
 <div class="list-group">
-        <button type="button" class="list-group-item">Cras justo odio</button>
-        <button type="button" class="list-group-item">Dapibus ac facilisis in</button>
-        <button type="button" class="list-group-item">Morbi leo risus</button>
-        <button type="button" class="list-group-item">Porta ac consectetur ac</button>
-        <button type="button" class="list-group-item">Vestibulum at eros</button>
-      </div>
-     
-      <button href="{{ url_for('finalmethod')}}" type="button" class="list-group-item"> </button> 
+        <button type="button" class="list-group-item"><a href="{{ url_for('.finalmethod')}}">Volunteering</a> </button>
+        <button type="button" class="list-group-item"><a href="{{ url_for('.finalmethod')}}">Sharing through facebook</a></button>
+        <button type="button" class="list-group-item"><a href="{{ url_for('.finalmethod')}}">Donating money</a></button>
+        <button type="button" class="list-group-item"><a href="{{ url_for('.finalmethod')}}">Donating gifts</a></button>
+        <button type="button" class="list-group-item"><a href="{{ url_for('.finalmethod')}}">Tweeting</a></button>
+</div>      
 <script>
 var items = document.getElementsByClassName("list-group-item active");
 
